@@ -17,7 +17,7 @@ jobs:
       - name: run cspell
         uses: streetsidesoftware/cspell-action@v8
         with:
-          config: './meta/cspell.json'
+          config: './_meta/cspell.json'
           files: '**/*.md'
 
       - name: comment if failed

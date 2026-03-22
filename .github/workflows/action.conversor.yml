@@ -37,10 +37,10 @@ jobs:
             -F pandoc_abnt \
             -F pandoc-citeproc \
             --bibliography=bibliografia.bib \
-            --csl=./meta/abnt.csl \
-            --template=./meta/abnt.latex \
+            --csl=./_meta/abnt.csl \
+            --template=./_meta/abnt.latex \
             *.md \
-            ./meta/referencias.md \
+            ./_meta/referencias.md \
             --pdf-engine=xelatex \
             -o ${{ github.event.repository.name }}.pdf
 
