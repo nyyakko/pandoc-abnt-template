@@ -1,16 +1,19 @@
 # Template para criação de artigos científicos em Markdown
 
 > [!NOTE]
-> baseado no projeto do [dsoaress](https://github.com/dsoaress/abnt-pandoc), sendo adaptado para as
+> Baseado no projeto do [dsoaress](https://github.com/dsoaress/abnt-pandoc), sendo adaptado para as
 > minhas necessidades específicas.
 
 Escreva seus artigos científicos em markdown e veja-os sendo transformados em
 pdf seguindo as normas abnt.
 
+> [!WARNING]
+> Antes de proceder, certifique-se de ter inicializado o projeto com ``npm init``!
+
 ## Compilando o artigo
 
 > [!WARNING]
-> antes de proceder, certifique-se de ter inicializado o projeto com ``npm init``!
+> Para compilar o pdf localmente, você precisará do docker instalado.
 
 Para compilar o seu artigo, basta executar o seguinte comando:
 
