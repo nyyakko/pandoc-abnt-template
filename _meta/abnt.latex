@@ -128,7 +128,7 @@ $endif$
 }
 
 % formatação das referências
-\newcommand{\referecestitle}{
+\newcommand{\referencestitle}{
     \singlespacing\normalfont\Large\sffamily\bfseries\center
 }
 \newenvironment{cslreferences}

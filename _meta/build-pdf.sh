@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo "Gerando PDF"
+
+if docker \
+    run --rm -v ./:/app -v ./build:/app/build \
+        pandoc $(find . -name "*.md" | sort) ./_meta/referencias.md \
+        --bibliography ./src/bibliografia.bib \
+        -o build/output.pdf; then
+    echo "O PDF foi gerado com sucesso"
+else
+    echo "Falhas ao gerar o PDF"
+fi
+
