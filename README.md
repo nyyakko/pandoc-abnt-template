@@ -7,8 +7,9 @@
 Escreva seus artigos científicos em markdown e veja-os sendo transformados em
 pdf seguindo as normas abnt.
 
-> [!WARNING]
-> Antes de proceder, certifique-se de ter inicializado o projeto com ``npm init``!
+# Inicializando o projeto
+
+Antes de proceder, certifique-se de ter inicializado o projeto com ``npm init``!
 
 ## Compilando o artigo
 
