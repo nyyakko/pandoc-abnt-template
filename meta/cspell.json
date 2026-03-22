@@ -9,5 +9,5 @@
             "addWords": true
         }
     ],
-    "ignorePaths": ["dicionario.txt", "**/_config.md"]
+    "ignorePaths": ["dicionario.txt", "**/_config.md", "**/_referencias.md"]
 }

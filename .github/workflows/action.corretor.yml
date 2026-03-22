@@ -1,40 +1,28 @@
 name: spell check
 
 on:
-  pull_request_review:
-    types: [submitted]
+  pull_request:
+    branches: [master]
 
 jobs:
   spellcheck:
     runs-on: ubuntu-22.04
 
+    permissions:
+      pull-requests: write
+
     steps:
-      - uses: actions/checkout@v4
-
-      - name: install node
-        uses: actions/setup-node@v4
-        with:
-            node-version: '18'
-
-      - name: install cspell
-        run: npm install -g cspell
+      - uses: actions/checkout@v5
 
       - name: run cspell
-        run: |
-          git diff --name-only \
-            ${{ github.event.pull_request.base.sha }} \
-            ${{ github.event.pull_request.head.sha }} | \
-          grep -E '\.(md)$' | \
-          xargs -r cspell --no-progress > report.txt 2>&1 || true
+        uses: streetsidesoftware/cspell-action@v8
+        with:
+          config: './meta/cspell.json'
+          files: '**/*.md'
 
       - name: comment if failed
         if: failure()
-        uses: actions/github-script@v7
+        uses: thollander/actions-comment-pull-request@v3
         with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Erros ortográficos foram encontrados no pull request. Por favor, revise as alterações e conserte-as.'
-            })
+          message: |
+            Foram encontrados erros ortográficos em seu pull-request.
