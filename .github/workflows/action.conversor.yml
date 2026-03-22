@@ -1,0 +1,73 @@
+name: compile pdf to markdown
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install dependencies
+        run: |
+          sudo apt-get update && \
+          sudo apt-get -y install texlive-publishers && \
+          texlive-latex-extra \
+          texlive-xetex \
+          texlive-fonts-recommended \
+          texlive-lang-spanish \
+          texlive-lang-french \
+          texlive-lang-portuguese \
+          wget -c https://github.com/jgm/pandoc/releases/download/2.9.1.1/pandoc-2.9.1.1-1-amd64.deb && \
+          sudo dpkg -i pandoc-2.9.1.1-1-amd64.deb && \
+          sudo gem install pandoc_abnt
+
+  build:
+    needs: dependencies
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: build pdf
+        run: |
+          pandoc -s \
+            -F pandoc_abnt \
+            -F pandoc-citeproc \
+            --bibliography=bibliografia.bib \
+            --csl=./meta/abnt.csl \
+            --template=./meta/abnt.latex \
+            *.md \
+            ./meta/referencias.md \
+            --pdf-engine=xelatex \
+            -o ${{ github.event.repository.name }}.pdf
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: |
+            ./*.pdf
+
+  release:
+    needs: build
+    runs-on: ubuntu-22.04
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: release-artifacts
+
+    - name: release
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: |
+          ./*.pdf
