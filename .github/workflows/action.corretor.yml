@@ -24,8 +24,8 @@ jobs:
           git diff --name-only \
             ${{ github.event.pull_request.base.sha }} \
             ${{ github.event.pull_request.head.sha }} | \
-            grep -E '\.(md)$' | \
-            xargs -r cspell --no-progress > report.txt 2>&1 || true
+          grep -E '\.(md)$' | \
+          xargs -r cspell --no-progress > report.txt 2>&1 || true
 
       - name: comment if failed
         if: failure()
