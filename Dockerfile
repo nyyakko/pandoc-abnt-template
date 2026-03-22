@@ -22,7 +22,6 @@ WORKDIR /app
 
 COPY ./_meta/abnt.csl .
 COPY ./_meta/abnt.latex .
-COPY ./_referencias.md .
 
 ENTRYPOINT [ \
     "pandoc", \
