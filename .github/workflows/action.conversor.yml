@@ -1,4 +1,4 @@
-name: compile pdf to markdown
+name: compile markdown to pdf
 
 on:
   push:
